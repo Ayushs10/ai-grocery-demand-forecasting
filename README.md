@@ -1,65 +1,71 @@
-# AI Demand Forecasting for Online Grocery Platforms
+# 🛒 AI Demand Forecasting for Online Grocery Platforms
 
-## Overview
+## 📌 Project Overview
 
-This project builds a machine learning pipeline to forecast grocery demand using the Instacart Online Grocery Shopping Dataset.
+This project builds a **machine learning pipeline to forecast grocery demand** using the **Instacart Online Grocery Shopping Dataset**.
 
-The goal is to understand customer demand patterns and predict future order volume to support inventory planning, warehouse staffing, and delivery operations.
+The objective is to analyze purchasing patterns and **predict future order demand** to support:
 
-The analysis uses 32M grocery transactions and applies machine learning and time-series forecasting techniques.
+- Inventory planning
+- Warehouse staffing
+- Delivery capacity management
+
+The analysis processes **32 million grocery transactions** and applies **machine learning and time-series forecasting models**.
 
 ---
 
-## Dataset
+## 📊 Dataset
 
-Source: Instacart Online Grocery Shopping Dataset (Kaggle)
+**Source:** Instacart Online Grocery Shopping Dataset (Kaggle)
 
 Tables used:
 
-- orders.csv
-- order_products__prior.csv
-- products.csv
-- aisles.csv
-- departments.csv
+- `orders.csv`
+- `order_products__prior.csv`
+- `products.csv`
+- `aisles.csv`
+- `departments.csv`
 
 The dataset contains information about:
 
-- order time
+- order timestamps
 - product categories
 - reorder behavior
 - department demand patterns
 
 ---
 
-## Project Workflow
+## ⚙️ Project Workflow
 
 ### 1. Data Cleaning
 
-Loaded and merged multiple Instacart tables to create a transaction-level dataset.
+Merged multiple Instacart tables to create a transaction-level dataset.
 
 Key steps:
 
-- handle missing values
-- merge orders and product tables
-- rename columns for clarity
-- create master dataset
+- handled missing values
+- merged orders and product tables
+- renamed columns for clarity
+- created master dataset
 
-Notebook: 01_data_loading_cleaning.ipynb
+Notebook:  
+`01_data_loading_cleaning.ipynb`
 
 ---
 
 ### 2. Feature Engineering
 
-Created features used by machine learning models:
+Created predictive features used by machine learning models:
 
 - hour of day
 - day of week
 - weekend indicator
-- cyclical hour encoding
+- cyclical encoding of hour
 - department encoding
 - log demand transformation
 
-Notebook:02_feature_engineering.ipynb
+Notebook:  
+`02_feature_engineering.ipynb`
 
 ---
 
@@ -74,54 +80,86 @@ Visualizations include:
 - top departments by demand
 - department-hour demand heatmap
 
-Key insight:
-Demand peaks during late morning and early afternoon.
+**Key insight**
 
-Notebook:03_demand_analysis.ipynb
+Demand peaks during **late morning and early afternoon**.
+
+Notebook:  
+`03_demand_analysis.ipynb`
+
+## Department Demand Heatmap
+
+The heatmap below shows the **average hourly demand across product departments**.
+
+It highlights how demand varies throughout the day across different grocery categories.
+
+Key observations:
+
+- **Produce dominates demand across most hours**
+- **Peak demand occurs between 9 AM – 4 PM**
+- Dairy & eggs show strong morning demand
+- Overnight demand is minimal across all departments
+
+![Department Demand Heatmap](https://github.com/Ayushs10/ai-grocery-demand-forecasting/blob/main/heatmap.png)
 
 ---
 
 ### 4. Random Forest Model
 
-Built a baseline machine learning model to predict demand.
+Built a **baseline machine learning model** to predict demand.
 
-Target variable:
-log-transformed demand
+**Target variable**
+
+`log-transformed demand`
 
 Evaluation metrics:
 
-- MAE
-- RMSE
+- MAE (Mean Absolute Error)
+- RMSE (Root Mean Squared Error)
 
-Notebook:04_random_forest_model.ipynb
+Notebook:  
+`04_random_forest_model.ipynb`
 
 ---
 
 ### 5. XGBoost Model
 
-Improved forecasting accuracy using gradient boosting.
+Improved forecasting accuracy using **gradient boosting**.
 
-Results:
-
-Best Model: XGBoost
+**Best Model:** XGBoost Regressor
 
 Example performance:
 
-MAE ≈ 523  
-RMSE ≈ 1555
+| Metric | Value |
+|------|------|
+| MAE | ~523 |
+| RMSE | ~1555 |
 
-Key drivers of demand:
+**Key demand drivers**
 
 1. Hour of day
-2. Department category
+2. Product department
 
-Notebook:05_xgboost_model.ipynb
+Notebook:  
+`05_xgboost_model.ipynb`
 
 ---
 
-### 6. Time-Series Analysis (Prophet)
+## 📈 Feature Importance
 
-Applied Prophet to analyze demand seasonality patterns.
+![Feature Importance](https://raw.githubusercontent.com/Ayushs10/ai-grocery-demand-forecasting/main/Feature%20Imp.png)
+
+---
+
+## 📉 Actual vs Predicted Demand
+
+![Actual vs Predicted Demand](https://raw.githubusercontent.com/Ayushs10/ai-grocery-demand-forecasting/main/Actual%20vs%20demand%20graph.png)
+
+---
+
+### 6. Time-Series Forecasting (Prophet)
+
+Applied **Prophet** to analyze demand seasonality patterns.
 
 Insights:
 
@@ -129,28 +167,29 @@ Insights:
 - weekly demand variation
 - peak demand windows
 
-Notebook:06_prophet_forecasting.ipynb
+Notebook:  
+`06_prophet_forecasting.ipynb`
 
 ---
 
-## Key Insights
+## 🔎 Key Insights
 
-Demand Patterns
+### Demand Patterns
 
 - Peak demand occurs between **10 AM – 2 PM**
 - Overnight demand is very low
 - Produce and dairy drive the highest order volume
 
-Demand Drivers
+### Demand Drivers
 
-Most important factors influencing demand:
+Most influential variables:
 
 - time of day
 - product department
 
-Operational Implications
+### Operational Applications
 
-These forecasts can support:
+These forecasts can help support:
 
 - inventory replenishment
 - warehouse staffing
@@ -158,40 +197,22 @@ These forecasts can support:
 
 ---
 
-## Technologies Used
+## 🧰 Technologies Used
 
-Python  
-Pandas  
-NumPy  
-Scikit-learn  
-XGBoost  
-Prophet  
-Matplotlib  
-Seaborn  
-
----
-
-## Project Structure
-instacart-demand-forecasting/
-
-notebooks/
-01_data_loading_cleaning.ipynb
-02_feature_engineering.ipynb
-03_demand_analysis.ipynb
-04_random_forest_model.ipynb
-05_xgboost_model.ipynb
-06_prophet_forecasting.ipynb
-
-data/
-cleaned_orders_products.csv
-processed_demand_data.csv
-
-README.md
-
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- XGBoost
+- Prophet
+- Matplotlib
+- Seaborn
 
 ---
 
-## Future Improvements
+---
+
+## 🚀 Future Improvements
 
 Possible improvements include:
 
@@ -202,8 +223,5 @@ Possible improvements include:
 
 ---
 
-## Author
 
-Data Science / Supply Chain Analytics Project
 
-Focused on demand forecasting and operational analytics.
